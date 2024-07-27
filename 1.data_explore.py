@@ -253,23 +253,4 @@ ax.set_ylabel('Sea level (m)')
 plt.legend()
 plt.savefig('figures/SLR_ts.jpg', dpi=300, bbox_inches='tight') 
 
-#%%
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

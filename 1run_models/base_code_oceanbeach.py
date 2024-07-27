@@ -53,7 +53,7 @@ from tensorflow.python.ops import math_ops
 
 #%%
 
-alphas= np.float32(np.linspace(0,1,11))
+# alphas= np.float32(np.linspace(0,1,11))
 alphas= np.float32([1])
 rmse_list = []; pear_list = []
 #alpha is mileke loss or pearson loss coefficient
