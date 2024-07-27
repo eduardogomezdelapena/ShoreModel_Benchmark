@@ -295,9 +295,9 @@ yresults.to_csv('./1run_models/output/Hybrid_ensemble.csv')
 mat_in.to_csv('./1run_models/output/inputs_target.csv')
 
 #Metrics 
-# rmse_arr=np.array([math.sqrt(mean_squared_error(yresults[colname].values,testY)) for (index, colname) in enumerate(yresults)])
-# pear_arr=np.array([scipy.stats.pearsonr(yresults[colname].values,testY[:,0])[0] for (index, colname) in enumerate(yresults)])
-# mielke_arr=np.array( [index_mielke(yresults[colname].values,testY[:,0]) for (index, colname)
+rmse_arr=np.array([math.sqrt(mean_squared_error(yresults[colname].values,testY)) for (index, colname) in enumerate(yresults)])
+pear_arr=np.array([scipy.stats.pearsonr(yresults[colname].values,testY[:,0])[0] for (index, colname) in enumerate(yresults)])
+mielke_arr=np.array( [index_mielke(yresults[colname].values,testY[:,0]) for (index, colname) in enumerate(yresults)])
 
 
 
