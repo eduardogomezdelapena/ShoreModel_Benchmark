@@ -291,8 +291,8 @@ for (index, colname) in enumerate(yresults):
 
 
 
-# yresults.to_csv('./output/Hybrid_ensemble.csv')
-
+yresults.to_csv('./1run_models/output/Hybrid_ensemble.csv')
+mat_in.to_csv('./1run_models/output/inputs_target.csv')
 
 #Metrics 
 # rmse_arr=np.array([math.sqrt(mean_squared_error(yresults[colname].values,testY)) for (index, colname) in enumerate(yresults)])
