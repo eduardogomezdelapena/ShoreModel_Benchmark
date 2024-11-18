@@ -29,7 +29,7 @@ def cal_metrics(df_ref, df_model, norm=True):
     '''
     
     # Extract the model result at time points fo reference
-    df_ref = df_ref.loc[(~df_ref.isna()).any(1), :]
+    df_ref = df_ref.loc[(~df_ref.isna()).any(axis=1), :]
     df_model = df_model.reindex(df_ref.index, method='Nearest')
     #m_idx = df_model.index.intersection(df_ref.index)
 
