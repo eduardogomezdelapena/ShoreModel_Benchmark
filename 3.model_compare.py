@@ -8,6 +8,12 @@ Created on Mon Nov 18 16:27:14 2024
 
 import os
 
+# Get the directory where the script is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Change the current working directory to the script's directory
+os.chdir(script_dir)
+
 import datetime
 import pandas as pd
 import numpy as np
@@ -78,7 +84,7 @@ colors_tab20b = tab20b(np.linspace(0, 1, 20))
 colors_tab20c = tab20c(np.linspace(0, 1, 20))
 
 # Concatenate the two sets of colors
-combined_colors = np.vstack((np.array([[1, 0, 0, 1], [0, 1, 0, 1], [0, 0, 1, 1]]), colors_tab20b, colors_tab20c))
+combined_colors = np.vstack((np.array([[1, 0, 0, 1],  [0, 0, 1, 1], [0, 1, 0, 1]]), colors_tab20b, colors_tab20c))
 
 # Create a new colormap from the combined colors
 cmap = plt.matplotlib.colors.ListedColormap(combined_colors)
@@ -195,18 +201,18 @@ zorders['iTransformer-KC'] = 38
 fig, axes = plot_ts(TRANSECTS, df_targ=df_targ, dfs_pred=dfs_pred, task='short', zorders=zorders, colors=MODEL_COLORS)
 # plt.savefig('figures/Short/Timeseries_all.jpg', dpi=300, bbox_inches='tight')
 
-base_dir= '/home/egom802/Documents/GitHub/New_ShoreModel_Benchmark/1run_models/output/'
+# base_dir= '/home/egom802/Documents/GitHub/New_ShoreModel_Benchmark/1run_models/output/'
 
-#Load pre-smoothing series
-updated_eegp=pd.read_csv(base_dir+'resubmission/blind_Hybrid_ensemble_Transect2_lookback150_2014_presmoothing.csv',
-                         index_col='Datetime')
-updated_eegp.index = pd.to_datetime(updated_eegp.index)
+# #Load pre-smoothing series
+# updated_eegp=pd.read_csv(base_dir+'resubmission/blind_Hybrid_ensemble_Transect2_lookback150_2014_presmoothing.csv',
+#                          index_col='Datetime')
+# updated_eegp.index = pd.to_datetime(updated_eegp.index)
 
 
-#Load post-smoothing series
-postsmooth_eegp=pd.read_csv(base_dir+'resubmission/blind_Hybrid_ensemble_Transect2_lookback150_2014_postsmoothing.csv',
-                         index_col='Datetime')
-postsmooth_eegp.index = pd.to_datetime(postsmooth_eegp.index)
+# #Load post-smoothing series
+# postsmooth_eegp=pd.read_csv(base_dir+'resubmission/blind_Hybrid_ensemble_Transect2_lookback150_2014_postsmoothing.csv',
+#                          index_col='Datetime')
+# postsmooth_eegp.index = pd.to_datetime(postsmooth_eegp.index)
 
 
 # axes[0].plot(postsmooth_eegp, zorder=36, color='crimson', label='lol')
@@ -220,12 +226,12 @@ fig = plot_ts_interactive(TRANSECTS, df_targ=df_targ, dfs_pred=dfs_pred, task='s
 fig.write_html('figures/Short/Timeseries.html')
 
 # Save timeseries for group comparison
-for group_name, group_elements in model_groups.items():
-    dfs_pred_group = {key: dfs_pred[key] for key in group_elements if key in dfs_pred}
-    fig = plot_ts(TRANSECTS, df_targ=df_targ, dfs_pred=dfs_pred_group, task='short', zorders=zorders, 
-                  colors=MODEL_COLORS, loss=df_loss.mean(1))
-    plt.savefig('figures/Short/Timeseries_{}.jpg'.format(group_name), dpi=300, bbox_inches='tight')
-    plt.close(fig)
+# for group_name, group_elements in model_groups.items():
+#     dfs_pred_group = {key: dfs_pred[key] for key in group_elements if key in dfs_pred}
+#     fig = plot_ts(TRANSECTS, df_targ=df_targ, dfs_pred=dfs_pred_group, task='short', zorders=zorders, 
+#                   colors=MODEL_COLORS, loss=df_loss.mean(1))
+#     plt.savefig('figures/Short/Timeseries_{}.jpg'.format(group_name), dpi=300, bbox_inches='tight')
+#     plt.close(fig)
     
 
     
