@@ -192,11 +192,31 @@ zorders['CoSMoS-COAST-CONV_SV'] = 40
 zorders['GAT-LSTM_YM'] = 39
 zorders['iTransformer-KC'] = 38
 #%% # Plot timeseries comparison
-fig = plot_ts(TRANSECTS, df_targ=df_targ, dfs_pred=dfs_pred, task='short', zorders=zorders, colors=MODEL_COLORS)
-plt.savefig('figures/Short/Timeseries_all.jpg', dpi=300, bbox_inches='tight')
+fig, axes = plot_ts(TRANSECTS, df_targ=df_targ, dfs_pred=dfs_pred, task='short', zorders=zorders, colors=MODEL_COLORS)
+# plt.savefig('figures/Short/Timeseries_all.jpg', dpi=300, bbox_inches='tight')
+
+base_dir= '/home/egom802/Documents/GitHub/New_ShoreModel_Benchmark/1run_models/output/'
+
+#Load pre-smoothing series
+updated_eegp=pd.read_csv(base_dir+'resubmission/blind_Hybrid_ensemble_Transect2_lookback150_2014_presmoothing.csv',
+                         index_col='Datetime')
+updated_eegp.index = pd.to_datetime(updated_eegp.index)
+
+
+#Load post-smoothing series
+postsmooth_eegp=pd.read_csv(base_dir+'resubmission/blind_Hybrid_ensemble_Transect2_lookback150_2014_postsmoothing.csv',
+                         index_col='Datetime')
+postsmooth_eegp.index = pd.to_datetime(postsmooth_eegp.index)
+
+
+# axes[0].plot(postsmooth_eegp, zorder=36, color='crimson', label='lol')
+
+#%% Interactive plot and html generation (very cool)
 
 fig = plot_ts_interactive(TRANSECTS, df_targ=df_targ, dfs_pred=dfs_pred, task='short', zorders=zorders, 
-                         colors=MODEL_COLORS, loss=df_loss.mean(1))
+                          colors=MODEL_COLORS, loss=df_loss.mean(1))
+
+
 fig.write_html('figures/Short/Timeseries.html')
 
 # Save timeseries for group comparison
@@ -207,6 +227,10 @@ for group_name, group_elements in model_groups.items():
     plt.savefig('figures/Short/Timeseries_{}.jpg'.format(group_name), dpi=300, bbox_inches='tight')
     plt.close(fig)
     
+
+    
+    
+
 #%% 2.1.3 Taylor Diagram for model ranking
 
 
@@ -215,25 +239,25 @@ for group_name, group_elements in model_groups.items():
 # del MODEL_COLORS['Ensemble']
 # del MODEL_TYPES['Ensemble']
 
-fig, axes = plt.subplots(1, 3, figsize=(15, 7))
+# fig, axes = plt.subplots(1, 3, figsize=(15, 7))
 
 
-for i, tran_id in enumerate(TRANSECTS):
-    metrics = metrics_all[tran_id]
-    ax = axes[i]
-    if i != len(TRANSECTS)-1:
-        ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend=None, ax=ax, 
-                         SDS_RMS=round(10/df_targ.std()[tran_id], 2))
-    else:
-        ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend='Average', 
-                         aver_scores=df_loss.mean(1), ax=ax, 
-                         SDS_RMS=round(10/df_targ.std()[tran_id], 2))
+# for i, tran_id in enumerate(TRANSECTS):
+#     metrics = metrics_all[tran_id]
+#     ax = axes[i]
+#     if i != len(TRANSECTS)-1:
+#         ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend=None, ax=ax, 
+#                          SDS_RMS=round(10/df_targ.std()[tran_id], 2))
+#     else:
+#         ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend='Average', 
+#                          aver_scores=df_loss.mean(1), ax=ax, 
+#                          SDS_RMS=round(10/df_targ.std()[tran_id], 2))
         
-    ax.set_title('Short-Term Prediction: {}'.format(tran_id), loc="left", y=1.1)
+#     ax.set_title('Short-Term Prediction: {}'.format(tran_id), loc="left", y=1.1)
 
-plt.subplots_adjust(wspace=0.2)
-plt.savefig('figures/Short/TaylorDiagram.jpg', dpi=300, bbox_inches='tight')
-df_loss['Avg'] = df_loss.mean(1)
+# plt.subplots_adjust(wspace=0.2)
+# plt.savefig('figures/Short/TaylorDiagram.jpg', dpi=300, bbox_inches='tight')
+# df_loss['Avg'] = df_loss.mean(1)
 
 
 

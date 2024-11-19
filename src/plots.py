@@ -110,7 +110,7 @@ def plot_ts(tran_ids, df_obs=None, dfs_cali=None, df_targ=None, dfs_pred=None, t
                     bbox_inches="tight", pad_inches=0.01)
         print('\nSaved plot to {}'.format(output_path))
 
-    return fig
+    return fig, axes
 
 
 def plot_ts_interactive(tran_ids, df_obs=None, dfs_cali=None, df_targ=None, dfs_pred=None, task='cali', 
