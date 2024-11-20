@@ -225,18 +225,19 @@ fig = plot_ts_interactive(TRANSECTS, df_targ=df_targ, dfs_pred=dfs_pred, task='s
 
 fig.write_html('figures/Short/Timeseries.html')
 
-# Save timeseries for group comparison
-# for group_name, group_elements in model_groups.items():
-#     dfs_pred_group = {key: dfs_pred[key] for key in group_elements if key in dfs_pred}
-#     fig = plot_ts(TRANSECTS, df_targ=df_targ, dfs_pred=dfs_pred_group, task='short', zorders=zorders, 
-#                   colors=MODEL_COLORS, loss=df_loss.mean(1))
-#     plt.savefig('figures/Short/Timeseries_{}.jpg'.format(group_name), dpi=300, bbox_inches='tight')
-#     plt.close(fig)
+#Save timeseries for group comparison
+for group_name, group_elements in model_groups.items():
+    dfs_pred_group = {key: dfs_pred[key] for key in group_elements if key in dfs_pred}
+    fig,_ = plot_ts(TRANSECTS, df_targ=df_targ, dfs_pred=dfs_pred_group, task='short', zorders=zorders, 
+                  colors=MODEL_COLORS, loss=df_loss.mean(1))
+    plt.savefig('figures/Short/Timeseries_{}.jpg'.format(group_name), dpi=300, bbox_inches='tight')
+    plt.close(fig)
     
+  
 
-    
-    
-
+metrics_trans2= metrics_all['Transect2']
+metrics_trans5= metrics_all['Transect5']
+metrics_trans8= metrics_all['Transect8']
 #%% 2.1.3 Taylor Diagram for model ranking
 
 
@@ -245,25 +246,25 @@ fig.write_html('figures/Short/Timeseries.html')
 # del MODEL_COLORS['Ensemble']
 # del MODEL_TYPES['Ensemble']
 
-# fig, axes = plt.subplots(1, 3, figsize=(15, 7))
+fig, axes = plt.subplots(1, 3, figsize=(15, 7))
 
 
-# for i, tran_id in enumerate(TRANSECTS):
-#     metrics = metrics_all[tran_id]
-#     ax = axes[i]
-#     if i != len(TRANSECTS)-1:
-#         ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend=None, ax=ax, 
-#                          SDS_RMS=round(10/df_targ.std()[tran_id], 2))
-#     else:
-#         ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend='Average', 
-#                          aver_scores=df_loss.mean(1), ax=ax, 
-#                          SDS_RMS=round(10/df_targ.std()[tran_id], 2))
+for i, tran_id in enumerate(TRANSECTS):
+    metrics = metrics_all[tran_id]
+    ax = axes[i]
+    if i != len(TRANSECTS)-1:
+        ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend=None, ax=ax, 
+                          SDS_RMS=round(10/df_targ.std()[tran_id], 2))
+    else:
+        ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend='Average', 
+                          aver_scores=df_loss.mean(1), ax=ax, 
+                          SDS_RMS=round(10/df_targ.std()[tran_id], 2))
         
-#     ax.set_title('Short-Term Prediction: {}'.format(tran_id), loc="left", y=1.1)
+    ax.set_title('Short-Term Prediction: {}'.format(tran_id), loc="left", y=1.1)
 
-# plt.subplots_adjust(wspace=0.2)
-# plt.savefig('figures/Short/TaylorDiagram.jpg', dpi=300, bbox_inches='tight')
-# df_loss['Avg'] = df_loss.mean(1)
+plt.subplots_adjust(wspace=0.2)
+plt.savefig('figures/Short/TaylorDiagram.jpg', dpi=300, bbox_inches='tight')
+df_loss['Avg'] = df_loss.mean(1)
 
 
 
