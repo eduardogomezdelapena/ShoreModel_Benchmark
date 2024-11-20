@@ -246,25 +246,25 @@ metrics_trans8= metrics_all['Transect8']
 # del MODEL_COLORS['Ensemble']
 # del MODEL_TYPES['Ensemble']
 
-fig, axes = plt.subplots(1, 3, figsize=(15, 7))
+# fig, axes = plt.subplots(1, 3, figsize=(15, 7))
 
 
-for i, tran_id in enumerate(TRANSECTS):
-    metrics = metrics_all[tran_id]
-    ax = axes[i]
-    if i != len(TRANSECTS)-1:
-        ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend=None, ax=ax, 
-                          SDS_RMS=round(10/df_targ.std()[tran_id], 2))
-    else:
-        ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend='Average', 
-                          aver_scores=df_loss.mean(1), ax=ax, 
-                          SDS_RMS=round(10/df_targ.std()[tran_id], 2))
+# for i, tran_id in enumerate(TRANSECTS):
+#     metrics = metrics_all[tran_id]
+#     ax = axes[i]
+#     if i != len(TRANSECTS)-1:
+#         ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend=None, ax=ax, 
+#                           SDS_RMS=round(10/df_targ.std()[tran_id], 2))
+#     else:
+#         ax = plot_taylor(metrics, MODEL_TYPES, MODEL_COLORS, legend='Average', 
+#                           aver_scores=df_loss.mean(1), ax=ax, 
+#                           SDS_RMS=round(10/df_targ.std()[tran_id], 2))
         
-    ax.set_title('Short-Term Prediction: {}'.format(tran_id), loc="left", y=1.1)
+#     ax.set_title('Short-Term Prediction: {}'.format(tran_id), loc="left", y=1.1)
 
-plt.subplots_adjust(wspace=0.2)
-plt.savefig('figures/Short/TaylorDiagram.jpg', dpi=300, bbox_inches='tight')
-df_loss['Avg'] = df_loss.mean(1)
+# plt.subplots_adjust(wspace=0.2)
+# plt.savefig('figures/Short/TaylorDiagram.jpg', dpi=300, bbox_inches='tight')
+# df_loss['Avg'] = df_loss.mean(1)
 
 
 
